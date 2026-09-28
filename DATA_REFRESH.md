@@ -36,7 +36,21 @@ is now stale, before it silently produces wrong numbers downstream (as it did
 with the original 2023 notebook: see the "What Actually Running the Code
 Found" section of `OVERVIEW.pdf`).
 
-## 3. Re-run and verify
+## 3. Check whether the reporting-status structure changed
+
+The notebook's data-cleaning section prints a `reporting_status` x `data_year`
+crosstab. As of the September 2026 refresh, 2014-2017 rows are 100%
+`Submitted` (non-reporters are simply absent as rows), while `Not
+Submitted`/`Exempt` placeholder rows only start appearing around 2018 - so
+the scale of non-reporting is only measurable for about half the period.
+
+**If a future refresh adds `Not Submitted`/`Exempt` rows for 2014-2017**
+retroactively, that's worth noting explicitly in `README.md`'s Key Findings
+and the notebook's reporting-status limitation note - it would mean this
+limitation no longer applies to the early years, which changes what can be
+said about non-reporting across the full period.
+
+## 4. Re-run and verify
 
 ```
 pytest tests/                      # confirm the cleaning pipeline still holds
