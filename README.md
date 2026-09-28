@@ -6,7 +6,7 @@ This repository is the culmination of a semester long project led by members of 
 
 ## About This Version
 
-This copy (`idscprojectv2`) is a personal revision maintained by Harshi Vetrivel, built with Claude Code, meant to show both how the analysis itself has evolved since the original 2023 submission and how I work with AI coding tools. It replaces the original 2014-2020 data snapshot with a refreshed 2014-2023 export from the same source, fixes several data-cleaning bugs the original notebook had (see Methodology), extracts that cleaning logic into a tested, reusable module (`clean.py` / `tests/`), and replaces the original grab-bag of exploratory/predictive analyses with a single, more rigorously tested question. The original team and description below are preserved as historical context; the Key Findings, Methodology, and Dataset sections describe the current state of the project.
+This copy (`chicago-ghg-emissions`) is a personal revision maintained by Harshi Vetrivel, built with Claude Code, meant to show both how the analysis itself has evolved since the original 2023 submission and how I work with AI coding tools. It replaces the original 2014-2020 data snapshot with a refreshed 2014-2023 export from the same source, fixes several data-cleaning bugs the original notebook had (see Methodology), extracts that cleaning logic into a tested, reusable module (`clean.py` / `tests/`), and replaces the original grab-bag of exploratory/predictive analyses with a single, more rigorously tested question. The original team and description below are preserved as historical context; the Key Findings, Methodology, and Dataset sections describe the current state of the project.
 
 ## Key Findings
 
