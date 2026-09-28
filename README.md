@@ -138,3 +138,7 @@ Longitude: Longitude of the property
 
 Location: Latitude and longitude of the property
 
+# License
+
+Code in this repository (the notebook, `clean.py`, `tests/`) is available under the [MIT License](LICENSE). The dataset itself is sourced from the [City of Chicago Data Portal](https://data.cityofchicago.org/Environment-Sustainable-Development/Chicago-Energy-Benchmarking/xq83-jr8c) under its own open data terms, not this repository's license.
+
