@@ -6,7 +6,17 @@ This repository is the culmination of a semester long project led by members of 
 
 ## About This Version
 
-This copy (`idscprojectv2`) is a personal revision maintained by Harshi Vetrivel, meant to show how the analysis has evolved since the original 2023 submission. It replaces the original 2014-2020 data snapshot with a refreshed 2014-2023 export from the same source, fixes several data-cleaning bugs the original notebook had (see Methodology), and replaces the original grab-bag of exploratory/predictive analyses with a single, more rigorously tested question. The original team and description below are preserved as historical context; the Methodology and Dataset sections describe the current state of the notebook.
+This copy (`idscprojectv2`) is a personal revision maintained by Harshi Vetrivel, built with Claude Code, meant to show both how the analysis itself has evolved since the original 2023 submission and how I work with AI coding tools. It replaces the original 2014-2020 data snapshot with a refreshed 2014-2023 export from the same source, fixes several data-cleaning bugs the original notebook had (see Methodology), extracts that cleaning logic into a tested, reusable module (`clean.py` / `tests/`), and replaces the original grab-bag of exploratory/predictive analyses with a single, more rigorously tested question. The original team and description below are preserved as historical context; the Key Findings, Methodology, and Dataset sections describe the current state of the project.
+
+## Key Findings
+
+- **Citywide GHG intensity fell from 13.0 to 6.2 kg CO2e/sq ft between 2014 and 2023** - and that decline holds up when checked against a fixed panel of repeat-reporting buildings, arguing against a changing reporting population as the explanation.
+- **83.9% of buildings tracked for 4+ years show their own declining GHG intensity trend** (9.6% worsened, 6.6% roughly flat) - the citywide number isn't hiding a few large movers doing all the work.
+- **The decline is front-loaded and partly pandemic-adjacent, not steady policy-driven progress**: -36% in 2014-2016, essentially flat in 2016-2019 (-3.6%), a sharp -16% single-year drop in 2020 that coincides with pandemic-driven building vacancy rather than retrofits, then a slower -7.5% crawl through 2023.
+- With federal power-plant emissions rules repealed in September 2026, city-level ordinances like Chicago's are increasingly the primary lever left for building decarbonization - this analysis is a check on how well that lever has actually performed, not just whether it exists.
+- A bonus breakdown by community area shows the fastest-improving areas declining several times faster than the slowest among areas with enough tracked buildings for a stable estimate - descriptive, not causal.
+
+A 14-slide summary of these findings is in `OVERVIEW.pdf`.
 
 # Meet our Team:
 
@@ -40,20 +50,23 @@ Numpy — Number manipulation
 Matplotlib.pyplot — Data Visualization
 
 # Methodology
-Chicago_Energy.ipynb is a Jupyter Notebook that:
 
-1. Loads `Chicago_Energy_Benchmarking.csv` and cleans it: renames the portal export's human-readable column headers to the snake_case field names the API version uses, coerces the numeric columns the export formats with thousands separators (e.g. `"104,849"`) back to numeric, audits missing values and duplicate `(id, data_year)` records, and buckets each property's community area into a region.
-2. Answers two questions the original single-snapshot version couldn't, now that the dataset spans 10 years (2014-2023):
+Data cleaning lives in `clean.py` (covered by `tests/test_clean.py`), not inline in the notebook: it renames the portal export's human-readable column headers to the snake_case field names the API version uses, coerces the numeric columns the export formats with thousands separators (e.g. `"104,849"`) back to numeric, and drops/normalizes rows with no community area. `Chicago_Energy.ipynb` calls that module, runs an upfront missing-values and duplicate-`(id, data_year)` audit, and then:
+
+1. Answers two questions the original single-snapshot version couldn't, now that the dataset spans 10 years (2014-2023):
    - **Has citywide GHG intensity actually declined, or does that just reflect a changing mix of reporting buildings?** Chicago's benchmarking ordinance phased in by building size, so the early reporting pool is a much smaller, different population than the later one. This is checked against a fixed panel of buildings with a multi-year reporting history, not just the raw yearly average.
    - **Among buildings tracked across multiple years, are individual buildings actually reducing their own emissions intensity?** Each repeat-reporting building gets its own year-over-year trend, rather than relying on a citywide average that a changing population or a few large movers could distort.
+2. Breaks the citywide trend into periods rather than accepting the single top-line number, to check whether the decline is steady or concentrated in a few years (see Key Findings).
+3. Visualizes the same trend spatially: an animated map (`ghg_intensity_by_year.gif`, reusing the shapefile below) plots every reporting building by location and GHG intensity, one frame per year.
+4. Adds a bonus, descriptive breakdown of the per-building trend by community area, using the source data's own labels rather than a hand-built regional grouping - the original's North/South/West lists never covered all of Chicago's community areas, so this version drops that grouping rather than risk repeating the error with a different one.
 
-The original 2023 version instead asked whether GHG emissions were linearly associated with electricity use and square footage, and whether mean GHG intensity differed significantly across building types, using regression, a building-size classifier (Random Forest / KNN), and a Geopandas map. That analysis has been removed from this version in favor of the trend analysis above; it's still available in this repository's git history.
+The original 2023 version instead asked whether GHG emissions were linearly associated with electricity use and square footage, and whether mean GHG intensity differed significantly across building types, using regression, a building-size classifier (Random Forest / KNN), and a hand-built North/South/West community-area grouping that never covered all of Chicago's community areas. That analysis has been removed from this version in favor of the trend analysis above; it's still available in this repository's git history.
 
 # Dataset: Chicago Energy Benchmarking, 2014-2023
 
 Chicago Energy Benchmarking (CSV) sourced through: City of Chicago Data Portal. Refreshed September 2026 from the same source as the original project; replaces the original 2014-2020 snapshot (17,728 rows) with a 2014-2023 export (28,329 rows).
 
-Chicago Outline shape files: used by the original version's Geopandas map, which this version no longer includes. Left in the repository in case a spatial visualization is added back later.
+Chicago Outline shape files: originally used by the 2023 version's Geopandas map, then unused for a time when that section was cut; reused in this version by the animated GHG-intensity map (`ghg_intensity_by_year.gif`).
 
 # Data Dictionary
 
