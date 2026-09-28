@@ -1,0 +1,14 @@
+# Core analysis
+pandas==3.0.6
+numpy==2.4.6
+matplotlib==3.11.2
+
+# Spatial (used by the animated GHG-intensity map)
+geopandas==1.1.4
+shapely==2.1.2
+
+# GIF export for the animated map (matplotlib's "pillow" writer)
+Pillow==12.3.0
+
+# Testing (tests/test_clean.py)
+pytest==9.1.1

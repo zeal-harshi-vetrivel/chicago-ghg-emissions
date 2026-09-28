@@ -49,6 +49,16 @@ Pandas — Data Analysis
 Numpy — Number manipulation
 Matplotlib.pyplot — Data Visualization
 
+# Running This Analysis
+
+```
+pip install -r requirements.txt
+pytest tests/            # verify the cleaning pipeline against real + synthetic data
+jupyter lab Chicago_Energy.ipynb   # or open in VS Code / Colab, then Run All
+```
+
+The notebook expects `Chicago_Energy_Benchmarking.csv` and the `chicago_outline.*` shapefiles in the same directory (both already committed here) and imports `clean.py` from that directory too - run Jupyter from the repo root.
+
 # Methodology
 
 Data cleaning lives in `clean.py` (covered by `tests/test_clean.py`), not inline in the notebook: it renames the portal export's human-readable column headers to the snake_case field names the API version uses, coerces the numeric columns the export formats with thousands separators (e.g. `"104,849"`) back to numeric, and drops/normalizes rows with no community area. `Chicago_Energy.ipynb` calls that module, runs an upfront missing-values and duplicate-`(id, data_year)` audit, and then:
