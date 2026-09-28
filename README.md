@@ -74,7 +74,7 @@ The original 2023 version instead asked whether GHG emissions were linearly asso
 
 # Dataset: Chicago Energy Benchmarking, 2014-2023
 
-Chicago Energy Benchmarking (CSV) sourced through: City of Chicago Data Portal. Refreshed September 2026 from the same source as the original project; replaces the original 2014-2020 snapshot (17,728 rows) with a 2014-2023 export (28,329 rows).
+Chicago Energy Benchmarking (CSV) sourced through: City of Chicago Data Portal. Refreshed September 2026 from the same source as the original project; replaces the original 2014-2020 snapshot (17,728 rows) with a 2014-2023 export (28,329 rows). See `DATA_REFRESH.md` for the exact steps to refresh it again.
 
 Chicago Outline shape files: originally used by the 2023 version's Geopandas map, then unused for a time when that section was cut; reused in this version by the animated GHG-intensity map (`ghg_intensity_by_year.gif`).
 
